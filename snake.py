@@ -1,11 +1,14 @@
-import pygame
+import time
 import sys
+import pygame
+from pygame.locals import *
 import random
 
 pygame.init()
-WHITE = (255, 255, 255)
 RED = (213, 50, 80)
-GREEN = (0, 255, 0)
+White=(255,255,255)
+BackGreen= (0, 255, 0)
+GREEN = (23, 87, 50)
 BLACK = (0, 0, 0)
 WIDTH, HEIGHT = 600, 400
 win = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -16,10 +19,15 @@ font = pygame.font.SysFont("bahnschrift", 25)
 
 def Your_score(score):
     value = font.render("Ton score est : " + str(score), True, BLACK)
-    win.blit(value, [0, 0])
+    win.blit(pygame.image.load("menu.png").convert(), (155, 155))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+        if event.type == KEYDOWN:
+            if event.key == K_KP0:
+                sys.exit()
+            if event.key == K_KP1:
+                gameLoop()
 
 def our_snake(block_size, snake_list):
     for x in snake_list:
@@ -35,7 +43,7 @@ def gameLoop():
     pommex, pommey = round(random.randrange(0, WIDTH - block_size) / 10.0) * 10.0, round(random.randrange(0, HEIGHT - block_size) / 10.0) * 10.0
     while game_over == False:
         while game_close == True:
-            win.fill(WHITE)
+            win.fill(White)
             Your_score(Longueur_du_snake - 1)
             pygame.display.update()
             for event in pygame.event.get():
@@ -65,7 +73,7 @@ def gameLoop():
             game_close = True
         x1 += x1_change
         y1 += y1_change
-        win.fill(WHITE)
+        win.fill(BackGreen)
         pygame.draw.rect(win, RED, [pommex, pommey, block_size, block_size])
         snake_tete = []
         snake_tete.append(x1)
